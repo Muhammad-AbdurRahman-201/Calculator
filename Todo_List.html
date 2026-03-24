@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Todo List</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+  .container-fluid {
+     background-color: bisque;
+     background-image: linear-gradient(to left,rgb(53, 8, 53),black);
+     height: 100vh;
+  }
+  .name {
+      height: 50px;
+      background-color: black;
+
+  }
+  .h3{
+    font-weight: 800;
+    color: aliceblue;
+  }
+
+  .main{
+    border: 2px solid rgb(0, 0, 0);
+    background-color: rgb(198, 143, 250);
+    border-radius: 10px;
+  }
+  .form-control{
+color: black;
+text-align: center;
+font-weight: 400;
+
+  }
+  .list-group-item{
+    background-color: rgb(192, 165, 192);
+    border: 0.5 px solid black;
+    color: black;
+  }
+.btnp{
+
+}
+
+</style>
+</head>
+<body>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center align-items-center name mt-3">
+      <h3 class="h3">Todo-List</h3>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-6 mx-auto  main mt-5">
+      
+<div class="input-group mb-3 mt-5">
+  <input type="text" class="form-control " placeholder="Enter Your Task" aria-label="Recipient's username" aria-describedby="button-addon2">
+  <button class="btn btn-outline-danger" type="button" id="button-addon2">Add</button>
+  
+</div>
+<ul class="list-group mb-2">
+  <!-- <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+  <li class="list-group-item">A fourth item</li>
+  <li class="list-group-item">And a fifth one</li> -->
+</ul>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<script>
+let input=document.querySelector(".form-control");
+let btn=document.querySelector(".btn");
+
+let max=30;
+let min=2;
+btn.addEventListener("click", function() {
+
+    let inputs = input.value;
+
+    if(inputs == ""){
+        alert("Pls Fill the form first")
+
+    } else if(inputs.length >= max || inputs.length <= min){
+        alert("Enter Task should be in the range of 2-30 alphabets")
+        input.value = "";
+    } else {
+
+        let ul = document.querySelector(".list-group")
+
+        let li = document.createElement("li")
+        li.className = "list-group-item d-flex align-items-center justify-content-between"
+
+        let radio = document.createElement("input")
+        radio.type = "checkbox"
+        radio.className = "form-check-input me-2"
+
+   
+        let span = document.createElement("span")
+        span.innerText = inputs.charAt(0).toUpperCase() + inputs.slice(1)
+
+      
+        let btnBox = document.createElement("div")
+
+        
+        let btnp = document.createElement("button")
+        btnp.innerText = "Delete"
+        btnp.className = "btn btn-outline-danger btn-sm"
+
+        
+        let btnpl = document.createElement("button")
+        btnpl.innerText = "Edit"
+        btnpl.className = "btn btn-outline-success btn-sm ms-2" 
+
+      
+        btnBox.appendChild(btnp)
+        btnBox.appendChild(btnpl)
+
+      
+        radio.addEventListener("change", function(){
+            if(radio.checked){
+                span.style.textDecoration = "line-through"
+                span.style.opacity = "0.6"
+            } else {
+                span.style.textDecoration = "none"
+                span.style.opacity = "1"
+            }
+        })
+
+     
+        btnp.addEventListener("click", function(){
+            li.remove()
+        })
+        btnpl.addEventListener("click",function(){
+          let currentText = span.innerText;
+    let newText = prompt("Edit your task:", currentText);
+    if (newText==""|| newText>=30 || newText<=2) {
+      alert("First Fill the field properly within thr range of 2-30")
+    } else {
+      span.innerText=newText.charAt(0).toUpperCase()+ newText.slice(1)
+    }
+        })
+
+      
+        li.appendChild(radio)
+        li.appendChild(span)
+        li.appendChild(btnBox)
+
+        ul.appendChild(li)
+        input.value = ""
+    }
+
+})
+</script>
